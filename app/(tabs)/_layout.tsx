@@ -2,8 +2,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import {FontAwesome5} from '@expo/vector-icons';
+import {Ionicons} from '@expo/vector-icons';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import HomeScreen from '.';
 
@@ -14,6 +13,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "#6b00ad",
+        tabBarActiveBackgroundColor: "#f0f0f0",
         headerShown: false,
       }}>
       <Tabs.Screen
@@ -39,7 +39,7 @@ export default function TabLayout() {
         options={{
           tabBarLabel: 'About Us',
           tabBarIcon: ({ color, focused }) => (
-            <FontAwesome5 name="question" size={24} color="black" />           
+            <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} size={24} color={color} />           
           ),
         }}
       />
