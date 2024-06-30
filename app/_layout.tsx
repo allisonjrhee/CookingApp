@@ -4,6 +4,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import GlobalProvider from '@/context/GlobalProvider';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -38,7 +39,7 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <GlobalProvider>
       <Stack>
         <Stack.Screen name="index" options={{headerShown: false}} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
@@ -46,6 +47,6 @@ export default function RootLayout() {
         {/* <Stack.Screen name="/search/[query]" options={{ headerShown: false }} /> */}
         <Stack.Screen name="+not-found" />
       </Stack>
-    </ThemeProvider>
+    </GlobalProvider>
   );
 }

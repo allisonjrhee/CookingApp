@@ -4,8 +4,14 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from '../constants'
 import CustomButton from "../components/CustomButton";
+import 'react-native-url-polyfill/auto'
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 export default function App() {
+    const { isLoading, isLoggedIn } = useGlobalContext();
+
+    console.log(isLoading, isLoggedIn)
+    if (!isLoading && isLoggedIn) return <Redirect href="/home" />
     return (
         <SafeAreaView className="bg-primary h-full">
             <ScrollView contentContainerStyle={{ height: '100%' }}>
@@ -15,7 +21,7 @@ export default function App() {
                     <View className="relative mt-5">
                         <Text className="text-3xl text-white font-bold text-center">
                             Discover eco-friendly living with
-                            <Text className="text-secondary"> Nourish</Text>
+                            <Text className="text-secondary"> Sprouted</Text>
                             !
                         </Text>
                         <Image source={images.path} className="w-[130px] h-[15] absolute" style={{ position: 'absolute', top: 62, left: 150 }} />

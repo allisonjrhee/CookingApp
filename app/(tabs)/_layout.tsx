@@ -24,13 +24,11 @@ export default function TabLayout() {
     <>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: "#6b00ad",
-          tabBarInactiveTintColor: "#4a434f",
-          tabBarActiveBackgroundColor: "#f0f0f0",
+          tabBarActiveTintColor: "#3e523a",
+          tabBarInactiveTintColor: "#5e7a58",
           tabBarStyle: {
-            backgroundColor: '#e6dded',
-            borderTopWidth: 1,
-            borderTopColor: '#a48ab8',
+            borderTopColor: '#3e523a',
+            borderTopWidth: 0.5,
             height: 85
           },
           headerShown: false,
@@ -40,7 +38,7 @@ export default function TabLayout() {
           name="home"
           options={{
             tabBarIcon: ({ color, focused }) => (
-              <View className="w-full items-center justify-center justify-items-center gap-1">
+              <View className="w-full items-center justify-center justify-items-center gap-1 mt-2">
                 <Ionicons name={focused ? 'home' : 'home-outline'} size={22} color={color} />
                 <Text className={`${focused ? 'font-psemibold' : 'font-pregular'} text-xs`} style={{ color: color }}>
                   Home
@@ -53,7 +51,7 @@ export default function TabLayout() {
           name="explore"
           options={{
             tabBarIcon: ({ color, focused }) => (
-              <View className="w-full items-center justify-center justify-items-center gap-1">
+              <View className="w-full items-center justify-center justify-items-center gap-1 mt-2">
                 <Ionicons name={focused ? 'search-sharp' : 'search-outline'} size={24} color={color} />
                 <Text className={`${focused ? 'font-psemibold' : 'font-pregular'} text-xs`} style={{ color: color }}>
                 Explore
@@ -66,7 +64,7 @@ export default function TabLayout() {
           name="bookmark"
           options={{
             tabBarIcon: ({ color, focused }) => (
-              <View className="w-full items-center justify-center justify-items-center gap-1">
+              <View className="w-full items-center justify-center justify-items-center gap-1 mt-2">
               <FontAwesome name={focused ? 'bookmark' : 'bookmark-o'} size={22} color={color} />
                 <Text className={`${focused ? 'font-psemibold' : 'font-pregular'} text-xs`} style={{ color: color }}>
                 Bookmarks
@@ -79,7 +77,7 @@ export default function TabLayout() {
           name="about"
           options={{
             tabBarIcon: ({ color, focused }) => (
-              <View className="w-full items-center justify-center justify-items-center gap-1">
+              <View className="w-full items-center justify-center justify-items-center gap-1 mt-2">
               <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} size={24} color={color} />
                 <Text className={`${focused ? 'font-psemibold' : 'font-pregular'} text-xs`} style={{ color: color }}>
                 About Us
@@ -92,7 +90,7 @@ export default function TabLayout() {
           name="profile"
           options={{
             tabBarIcon: ({ color, focused }) => (
-              <View className="w-full items-center justify-center justify-items-center gap-1">
+              <View className="w-full items-center justify-center justify-items-center gap-1 mt-2">
               <FontAwesome name={focused ? 'user-circle' : 'user-circle-o'} size={24} color={color} />
                 <Text className={`${focused ? 'font-psemibold' : 'font-pregular'} text-xs`} style={{ color: color }}>
                 Profile

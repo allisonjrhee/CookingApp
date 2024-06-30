@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "CookingApp",
-    "slug": "CookingApp",
+    "name": "Sprouted",
+    "slug": "Sprouted",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "CookingApp",
+    "scheme": "sprout",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
@@ -13,7 +13,8 @@
       "backgroundColor": "#FEF9B0"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "package": "com.sprouted"
     },
     "android": {
       "adaptiveIcon": {

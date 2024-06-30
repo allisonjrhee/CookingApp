@@ -1,58 +1,76 @@
-import { Image, StyleSheet, Platform, Button, View, Text } from 'react-native';
+import { Alert, FlatList, Image, RefreshControl, StyleSheet, Text, View } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { Link } from 'expo-router';
+import Trending from '@/components/Trending';
+import EmptyState from '@/components/EmptyState';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import images from '@/constants/images';
+import { useEffect, useState } from 'react';
+import { getAllPosts } from '@/lib/appwrite';
+import useAppwrite from "../../lib/useAppwrite";
+import PostCard from '@/components/PostCard';
 
 export default function Home() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#6b00ad', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView className="flex-1 items-center justify-center bg-white">
-        <ThemedText type="title" className="text-3xl font-pextrabold">Welcome!</ThemedText>
-        <Text className="text-3xl">This is Allison's blog</Text>
-      </ThemedView>
-      <ThemedView className="flex-1 items-center justify-center bg-white">
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView className="flex-1 items-center justify-center bg-white">
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView className="flex-1 items-center justify-center bg-white">
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-      <View className="flex-1 items-center justify-center bg-white">
-        <Link href="/about">
-          <Button title="About Us" color="#6b00ad"></Button>
-        </Link>
-      </View>
-    </ParallaxScrollView>
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
+
+  const [refreshing, setRefreshing] = useState(false)
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  }
+
+  console.log(posts)
+
+  return ( 
+    <SafeAreaView className='h-full'>
+        <FlatList
+          // list of data
+          data={posts}
+          // data={[]}
+          keyExtractor={(item:any) => item.$id}
+          // how to render each component
+          renderItem={({ item }) => (
+            <PostCard post={item}/>
+          )}
+          // header to the lists
+          ListHeaderComponent={() => (
+            <View className='my-6 px-4'>
+              
+              <View className="justify-between items-start flex-row mb-6">
+                <View>
+                  <Text className="font-pmedium text-sm text-secondary">
+                    Welcome Back
+                  </Text>
+                  <Text className="text-2xl font-psemibold text-primary">
+                    Allison Rhee
+                  </Text>
+                </View>
+                <View className='mt-1.5'>
+                  <Image source={images.logoSmall} className="w-9 h-10 rounded-full" resizeMode='contain'/>
+                </View>
+              </View>
+
+              <View className="w-full flex-1 pt-1 pb-8">
+                <Text className='text-primary text-lg font-pregular mb-3'>
+                  Latest Recipes
+                </Text>
+                <Trending posts={[{id: 1},{id:2},{id:3}] ?? []}>
+                </Trending>
+              </View>
+
+            </View>
+          )}
+          ListEmptyComponent={() => (
+              <EmptyState 
+                title="No recipes found"
+                subtitle="Please try again later"
+              ></EmptyState>
+          )}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}></RefreshControl>}
+        />  
+
+    </SafeAreaView>
+
   );
 }
 
